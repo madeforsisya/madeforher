@@ -5,6 +5,30 @@
 <title>For You 💖</title>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Quicksand', sans-serif;
+            background: black;
+            color: pink;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 1.5s ease;
+        }
+
+        #intro, #chat-section, #envelope-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #intro { display: flex; }
+  
   .msg {
   max-width: 70%;
   padding: 8px 10px;
@@ -274,213 +298,5 @@ function showMessage(){
 }
 </script>
 
-</body>
-</html>
-
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Sisya 💖</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap');
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffafbd;
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-            font-family: 'Quicksand', sans-serif;
-            overflow: hidden;
-        }
-
-        #intro {
-            text-align: center;
-            z-index: 10;
-        }
-
-        .btn-open {
-            padding: 15px 40px;
-            font-size: 20px;
-            background: white;
-            color: #ff4b5c;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-open:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-      
-        .envelope-wrapper {
-            display: none;
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background: #ff5e6c;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            cursor: pointer;
-        }
-
-        .envelope-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            z-index: 4;
-            border-top: 130px solid #ff7a85;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            transform-origin: top;
-            transition: all 0.5s ease;
-        }
-
-        .paper {
-            position: absolute;
-            bottom: 10px;
-            left: 15px;
-            width: 270px;
-            height: 180px;
-            background: white;
-            border-radius: 5px;
-            z-index: 2;
-            transition: all 0.8s ease;
-            padding: 20px;
-            box-sizing: border-box;
-            box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .paper-content {
-            font-family: 'Dancing Script', cursive;
-            font-size: 19px;
-            color: #444;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .envelope-wrapper.open::before {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .envelope-wrapper.open .paper {
-            transform: translateY(-160px);
-            height: 380px;
-            z-index: 5;
-        }
-
-        .heart-seal {
-            position: absolute;
-            top: 85px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 6;
-            font-size: 40px;
-            color: white;
-            transition: 0.3s;
-        }
-
-        .envelope-wrapper.open .heart-seal {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .floating-heart {
-            position: absolute;
-            pointer-events: none;
-            z-index: -1;
-            animation: fly 6s linear forwards;
-        }
-
-        @keyframes fly {
-            0% { transform: translateY(100vh) scale(0); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="intro">
-        <h1 style="color: white; margin-bottom: 30px;">Hii Sisya 💌</h1>
-        <button class="btn-open" onclick="start()">Klik Di Sini</button>
-    </div>
-
-    <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
-        <div class="heart-seal">💖</div>
-        <div class="paper">
-            <div class="paper-content" id="text"></div>
-        </div>
-    </div>
-
-    <script>
-        const pesanMasuk = "Hii Sisya...\n\ni would to say that i really thank you for came into my life i hope youre always good and god always blessed you, semangat ya kak you have me, i'll always by ur side anytime anyway tapi maafin aku belum bisa yang selalu ada disamping kamu secara real life karena aku sama kamu masih ldr tuday but i'all always praying to god to safe you from bad day bad feel, happy born day ya kak ! maaf aku cuman bisa kasih ini ke kamu \n\nI really like, loved you, more than you know. 💖";
-
-        function bukaPetualangan() {
-            document.getElementById('pintu-awal').style.display = 'none';
-            const container = document.getElementById('suratUtama');
-            container.style.display = 'block';
-            setTimeout(() => container.style.opacity = '1', 100);
-            document.getElementById('musik').play();
-            setInterval(createHeart, 300);
-        }
-
-        function prosesBuka() {
-            const container = document.querySelector('.container');
-            if (!container.classList.contains('open')) {
-                container.classList.add('open');
-                setTimeout(mulaiNgetik, 1000);
-            }
-        }
-
-        function mulaiNgetik() {
-            const elemenTeks = document.getElementById('teksSurat');
-            let i = 0;
-            elemenTeks.innerHTML = "";
-
-            function ketik() {
-                if (i < pesanMasuk.length) {
-                    let char = pesanMasuk.charAt(i);
-                    elemenTeks.innerHTML += char === "\n" ? "<br>" : char;
-                    i++;
-                    setTimeout(ketik, 50);
-                }
-            }
-            ketik();
-        }
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("floating-heart");
-            heart.innerHTML = "💖";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-            heart.style.opacity = Math.random();
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
-    </script>
 </body>
 </html>

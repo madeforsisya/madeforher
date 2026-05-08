@@ -282,7 +282,7 @@ function showMessage(){
   }, delay);
 }
 
- function showNext() {
+function showNext() {
  if (i < messages.length) {
  showTypingIndicator();
 
@@ -299,16 +299,15 @@ function showMessage(){
                 setTimeout(showNext, 1500);
             }, 1000); 
         } else {
-            setTimeout(() => {
-                document.body.style.transition = "2s";
-                document.body.style.opacity = "0";
-                
-                setTimeout(() => {
-                    window.location.href = "surat.html"; 
-                }, 1000);
-            }, 2000);
-        }
-    }
+    setTimeout(() => {
+        document.body.style.transition = "1.5s";
+        document.body.style.opacity = "0";
+        
+        setTimeout(() => {
+            window.location.href = "surat.html"; 
+        }, 1000);
+    }, 2000);
+}
 </script>
 
 </body>

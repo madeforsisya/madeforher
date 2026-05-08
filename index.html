@@ -282,11 +282,33 @@ function showMessage(){
   }, delay);
 }
 
-  if(i === messages.length - 1){
-  for(let j=0;j<20;j++){
-    setTimeout(createHeart, j*100);
-  }
-}
+ function showNext() {
+ if (i < messages.length) {
+ showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `msg ${messages[i].type}`;
+                msgDiv.innerText = messages[i].text;
+                chatBox.appendChild(msgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                i++;
+                setTimeout(showNext, 1500);
+            }, 1000); 
+        } else {
+            setTimeout(() => {
+                document.body.style.transition = "2s";
+                document.body.style.opacity = "0";
+                
+                setTimeout(() => {
+                    window.location.href = "surat.html"; 
+                }, 1000);
+            }, 2000);
+        }
+    }
 </script>
 
 </body>

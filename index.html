@@ -6,7 +6,7 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap');
-        body {
+  .body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', 'Quicksand', sans-serif;
@@ -19,15 +19,6 @@
             align-items: center;
             transition: background 1.5s ease;
         }
-
-        #intro, #chat-section, #envelope-section {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        #intro { display: flex; }
   
   .msg {
   max-width: 70%;
@@ -99,8 +90,8 @@ button {
   font-size: 18px;
   border: none;
   border-radius: 10px;
-  background: #ff4b5c;
-  color: pink;
+  background: yellow pastel;
+  color: white;
   cursor: pointer;
 }
 
@@ -122,7 +113,7 @@ button {
 }
 
 .header {
-  background: #075E54;
+  background: dark green;
   color: black;
   padding: 12px;
 }
@@ -132,26 +123,26 @@ button {
   padding: 10px;
   overflow-y: auto;
 
-  background-image: url("https://i.imgur.com/Qr6QF2G.png");
+  background-image: black;
   background-size: cover;
   background-position: center;
 }
 
 .me {
-  background: #dcf8c6;
+  background: red;
   margin-left: auto;
   animation: slideRight 0.3s forwards;
 }
 
 .you {
-  background: white;
+  background: red;
   animation: slideLeft 0.3s forwards;
 }
 
 .heart {
   position: absolute;
   color: pink;
-  animation: float 6s linear infinite;
+  animation: float 3s linear infinite;
 }
 
 @keyframes slideLeft {
@@ -183,11 +174,11 @@ button {
   <h2>Sisya 💖</h2>
 
   <div class="phone">
-    <div class="header">Chat 💬</div>
+    <div class="header">💬</div>
     <div class="chat" id="chat"></div>
   </div>
 
-  <p>Youre so fine 💖</p>
+  <p>💖</p>
 
   <img src="https://i.imgur.com/3ZQ3Z6F.jpg" width="180">
 </div>

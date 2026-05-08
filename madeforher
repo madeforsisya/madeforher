@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+#intro {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4b5c;
+  color: white;
+  cursor: pointer;
+}
+
+#main {
+  display: none;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.phone {
+  width: 320px;
+  height: 520px;
+  background: #ece5dd;
+  border-radius: 25px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  background: #075E54;
+  color: white;
+  padding: 12px;
+}
+
+.chat {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.msg {
+  max-width: 70%;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.me { background: #dcf8c6; margin-left: auto; }
+.you { background: white; }
+
+.heart {
+  position: absolute;
+  color: pink;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+  <h2>Hii Sisya 💌</h2>
+  <button onclick="start()">Click Here</button>
+</div>
+
+<div id="main">
+  <h2>Sisya 💖</h2>
+
+  <div class="phone">
+    <div class="header">Chat 💬</div>
+    <div class="chat" id="chat"></div>
+  </div>
+
+  <p>Youre so fine 💖</p>
+
+  <img src="https://i.imgur.com/3ZQ3Z6F.jpg" width="180">
+</div>
+
+<audio id="music" loop>
+  <source src="https://files.catbox.moe/6i6umz.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-btn">
+  <button onclick="toggleMusic()">🎵</button>
+</div>
+
+<script>
+function start() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("main").style.display = "block";
+
+  document.getElementById("music").play();
+
+  setInterval(createHeart, 300);
+  showMessage();
+}
+
+function toggleMusic() {
+  const music = document.getElementById("music");
+  if (music.paused) {
+    music.play();
+  } else {
+    music.pause();
+  }
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+
+const messages = [
+  {text:"Hii 👋", type:"you"},
+  {text:"Hii 😄", type:"me"},
+  {text:"I Would To Say...", type:"me"},
+  {text:"Whats?", type:"you"},
+  {text:"I Loved You 💖", type:"me"},
+  {text:"🥺", type:"you"}
+];
+
+let i = 0;
+function showMessage(){
+  if(i>=messages.length) return;
+
+  const msg=document.createElement("div");
+  msg.classList.add("msg", messages[i].type);
+  msg.innerText=messages[i].text;
+
+  document.getElementById("chat").appendChild(msg);
+  document.getElementById("chat").scrollTop =
+    document.getElementById("chat").scrollHeight;
+
+  i++;
+  setTimeout(showMessage,1500);
+}
+</script>
+
+</body>
+</html>

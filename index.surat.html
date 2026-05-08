@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+
+<style>
+  .msg {
+  max-width: 70%;
+  padding: 8px 10px;
+  margin: 6px;
+  border-radius: 10px;
+  font-size: 14px;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.time {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.tick {
+  font-size: 11px;
+  margin-left: 5px;
+}
+
+.typing {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: gray;
+  border-radius: 50%;
+  animation: blink 1.4s infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% {opacity: 0;}
+  40% {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: black;
+  color: pink;
+  overflow: hidden;
+}
+
+#intro {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4b5c;
+  color: pink;
+  cursor: pointer;
+}
+
+.main {
+  display: none;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.phone {
+  width: 320px;
+  height: 520px;
+  background: #ece5dd;
+  border-radius: 25px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  background: #075E54;
+  color: black;
+  padding: 12px;
+}
+
+.chat {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+
+  background-image: url("https://i.imgur.com/Qr6QF2G.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.me {
+  background: #dcf8c6;
+  margin-left: auto;
+  animation: slideRight 0.3s forwards;
+}
+
+.you {
+  background: white;
+  animation: slideLeft 0.3s forwards;
+}
+
+.heart {
+  position: absolute;
+  color: pink;
+  animation: float 6s linear infinite;
+}
+
+@keyframes slideLeft {
+  from {transform: translateX(-30px); opacity: 0;}
+  to {transform: translateX(0); opacity: 1;}
+}
+
+@keyframes slideRight {
+  from {transform: translateX(30px); opacity: 0;}
+  to {transform: translateX(0); opacity: 1;}
+}
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+  <h2>Hii Sisya 💌</h2>
+  <button onclick="start()">Click Here</button>
+</div>
+
+<div id="main">
+  <h2>Sisya 💖</h2>
+
+  <div class="phone">
+    <div class="header">Chat 💬</div>
+    <div class="chat" id="chat"></div>
+  </div>
+
+  <p>Youre so fine 💖</p>
+
+  <img src="https://i.imgur.com/3ZQ3Z6F.jpg" width="180">
+</div>
+
+<audio id="music" loop>
+  <source src="https://files.catbox.moe/6i6umz.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-btn">
+  <button onclick="toggleMusic()">🎵</button>
+</div>
+
+<script>
+function start() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("main").style.display = "block";
+
+  document.getElementById("music").play();
+
+  setInterval(createHeart, 300);
+  showMessage();
+}
+
+function toggleMusic() {
+  const music = document.getElementById("music");
+  if (music.paused) {
+    music.play();
+  } else {
+    music.pause();
+  }
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+
+const messages = [
+  {text:"Hii 👋", type:"you"},
+  {text:"Hii too, Whats Wrong?", type:"me"},
+  {text:"I Would To Say Something...", type:"you"},
+  {text:"Whats Happen?", type:"me"},
+  {text:"But Iam Nervous To say it 💖", type:"you"},
+  {text:"Hey Its Okay just say it", type:"me"},
+  {text:"I liked You Since Weve Met", type:"you"},
+  {text:"R U Sure?", type:"me"},
+  {text:"Yash R U Uncomfortable?", type:"you"},
+  {text:"Nor, I Liked you too kak", type:"me"},
+  {text:"I Loved You 💖", type:"me"},
+  {text:"🥺", type:"you"}
+];
+
+let i = 0;
+function showMessage(){
+  if(i >= messages.length) return;
+
+  const chat = document.getElementById("chat");
+
+  const typing = document.createElement("div");
+  typing.classList.add("msg", messages[i].type);
+
+  const typingDots = document.createElement("div");
+  typingDots.classList.add("typing");
+
+  typingDots.innerHTML = `
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  `;
+
+  typing.appendChild(typingDots);
+  chat.appendChild(typing);
+  chat.scrollTop = chat.scrollHeight;
+
+  const delay = Math.random() * 2000 + 1000;
+
+  setTimeout(() => {
+    typing.remove();
+
+    const msg = document.createElement("div");
+    msg.classList.add("msg", messages[i].type);
+
+    const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+    msg.innerHTML = `
+      ${messages[i].text}
+      <div class="time">${time} 
+        ${messages[i].type === "me" ? '<span class="tick">✔✔</span>' : ''}
+      </div>
+    `;
+
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+
+    i++;
+    showMessage();
+  }, delay);
+}
+
+  if(i === messages.length - 1){
+  for(let j=0;j<20;j++){
+    setTimeout(createHeart, j*100);
+  }
+}
+</script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Spesial 💌</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap');
+
+        :root {
+            --bg-color: #ffdde1;
+            --envelope-color: #f39c12;
+            --paper-color: #ffffff;
+            --heart-color: #e74c3c;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #ff9a9e 0%, #fecfef 100%);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
+
+        #pintu-awal {
+            position: fixed;
+            z-index: 100;
+            text-align: center;
+        }
+
+        #pintu-awal button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            color: #ff4b5c;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        #pintu-awal button:hover {
+            transform: scale(1.1);
+            background: #ff4b5c;
+            color: white;
+        }
+
+        .container {
+            position: relative;
+            display: none; 
+            opacity: 0;
+            transition: 1s ease;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #d35400; 
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .envelope-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 4;
+            border-top: 110px solid #e67e22;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .envelope-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 3;
+            border-top: 100px solid transparent;
+            border-left: 150px solid #f39c12;
+            border-right: 150px solid #f39c12;
+            border-bottom: 100px solid #f39c12;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .paper {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: 270px;
+            height: 180px;
+            background: var(--paper-color);
+            z-index: 2;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: all 0.8s ease-in-out;
+            border-radius: 5px;
+            box-shadow: 0 -5px 10px rgba(0,0,0,0.05);
+        }
+
+        .content {
+            font-family: 'Dancing Script', cursive;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .container.open .envelope-wrapper::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .container.open .paper {
+            transform: translateY(-150px);
+            height: 350px; 
+            z-index: 5;
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            color: #e74c3c;
+            font-size: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .heart-seal:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
+      
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff4b5c;
+            user-select: none;
+            pointer-events: none;
+            z-index: -1;
+            animation: fly 5s linear forwards;
+        }
+
+        @keyframes fly {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pintu-awal">
+        <button onclick="bukaPetualangan()">Buka Surat Untuk Sisya 💌</button>
+    </div>
+
+    <div class="container" id="suratUtama">
+        <div class="envelope-wrapper">
+            <div class="heart-seal" onclick="prosesBuka()">💖</div>
+            <div class="paper" id="kertas">
+                <div class="content" id="teksSurat"></div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="musik" loop>
+        <source src="https://files.catbox.moe/6i6umz.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const pesanMasuk = "Hii Sisya...\n\ni would to say that i really thank you for came into my life i hope youre always good and god always blessed you, semangat ya kak you have me, i'll always by ur side anytime anyway tapi maafin aku belum bisa yang selalu ada disamping kamu secara real life karena aku sama kamu masih ldr tuday but i'all always praying to god to safe you from bad day bad feel, happy born day ya kak ! maaf aku cuman bisa kasih ini ke kamu \n\nI really like, loved you, more than you know. 💖";
+
+        function bukaPetualangan() {
+            document.getElementById('pintu-awal').style.display = 'none';
+            const container = document.getElementById('suratUtama');
+            container.style.display = 'block';
+            setTimeout(() => container.style.opacity = '1', 100);
+            document.getElementById('musik').play();
+            setInterval(createHeart, 300);
+        }
+
+        function prosesBuka() {
+            const container = document.querySelector('.container');
+            if (!container.classList.contains('open')) {
+                container.classList.add('open');
+                setTimeout(mulaiNgetik, 1000);
+            }
+        }
+
+        function mulaiNgetik() {
+            const elemenTeks = document.getElementById('teksSurat');
+            let i = 0;
+            elemenTeks.innerHTML = "";
+
+            function ketik() {
+                if (i < pesanMasuk.length) {
+                    let char = pesanMasuk.charAt(i);
+                    elemenTeks.innerHTML += char === "\n" ? "<br>" : char;
+                    i++;
+                    setTimeout(ketik, 50);
+                }
+            }
+            ketik();
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("floating-heart");
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
